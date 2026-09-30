@@ -38,11 +38,14 @@ This repository's own development decisions are recorded with Quebico itself
 
 - **v0.1** — fix the questions the graph must answer, derive a minimal decision &
   rationale schema from them, and store it as plain files inside your repo
-  (YAML/Markdown with ID links, no graph DB) + visualization
-- **v0.2** — automatic extraction from Claude Code sessions and PRs (MCP server),
-  with provenance edges required on every node
-- **v0.3** — active checks: contradiction detection and stale-premise alerts,
-  each with a recommended action
+  (YAML/Markdown with ID links, no graph DB). The first two checks ship here,
+  deterministic and LLM-free: decisions still standing on a premise that no longer
+  holds, and tasks that serve no goal — plus a Mermaid view that GitHub renders as-is
+- **v0.2** — automatic extraction from Claude Code sessions (via a session-end hook,
+  no server to keep running) and from PRs, with provenance edges required on every
+  node
+- **v0.3** — checks that need judgment: contradiction detection, and noticing on its
+  own when a premise has gone stale — each with a recommended action
 
 Each stage ships with a design write-up in English and Japanese.
 

@@ -4,7 +4,7 @@ version = "0.1.0.dev0"
 description = "Record the reasoning that connects your project — goals, decisions, premises — as a graph you can put to work."
 readme = "README.md"
 authors = [
-    { name = "PiktorZu", email = "tobe.you2016@gmail.com" }
+    { name = "PiktorZu" }
 ]
 requires-python = ">=3.12"
 dependencies = []

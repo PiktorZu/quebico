@@ -20,7 +20,7 @@ This project is working through a risk-ordered plan. Two uncertainties must be s
 before any feature work:
 
 1. **Can the schema answer the watch questions?** Settled on paper, with zero code,
-   against 15 real records.
+   against 15 real records (0010: `docs/schema.md`, `tests/acceptance/`).
 2. **Does recording actually keep happening?** This is the "capture problem" that
    killed thirty years of design-rationale research. Settled by dogfooding and
    measurement.
@@ -39,7 +39,7 @@ would break that budget, stop and say so instead of writing it.
 uncertainty it removes, at what cost, and how its outcome is judged yes or no.*
 A task that cannot be stated that way gets dropped, not done.
 
-## Recording convention (provisional — replaced by schema v0.1)
+## Recording convention (provisional — replaced by schema v0.1 in Step 3)
 
 This is the most important section in this file. It exists so that the capture problem
 can be measured starting now, before the schema exists.
@@ -47,8 +47,8 @@ can be measured starting now, before the schema exists.
 **When a decision about direction, design, or operations is made in a session, write it
 to `.quebico/inbox/` as one free-form Markdown file** named `NNNN-short-slug.md`.
 Cover three things: what was decided, why, and which alternatives were rejected and why.
-Free-form is deliberate — do not invent a schema here. These files migrate to the fixed
-schema once it exists.
+Free-form is deliberate — do not invent a schema here. These files move to schema v0.1
+(`docs/schema.md`) in Step 3, not before (0010).
 
 **Every pull request must do exactly one of two things, with no third option:**
 

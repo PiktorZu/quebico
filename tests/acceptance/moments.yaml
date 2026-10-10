@@ -1,0 +1,69 @@
+schema_version: 1
+
+# The acceptance test for the two watch questions in docs/questions.md.
+#
+# Seven moments are the record set as it stood at one point in this project's
+# history; two, marked constructed, are states it could have been in. `records` lists
+# the records present. The files in records/ show each record as of 2026-10-09, and
+# `set` gives the states that differed at that moment. `expect` holds the answers worked
+# out by hand before any code existed: q1 lists (decision, premise) pairs, q2 lists
+# tasks. Order does not matter.
+
+moments:
+  - name: before-the-clash
+    note: mid-August 2026, named Omoikane, no clash known yet
+    records: [P1, D1, D2]
+    set: {P1: {holds: true}}
+    expect: {q1: [], q2: []}
+
+  - name: clash-found
+    note: 2026-08-20, another active project called Omoikane turns up
+    records: [P1, D1, D2]
+    expect:
+      q1: [[D1, P1], [D2, P1]]
+      q2: []
+
+  - name: renamed
+    note: 2026-08-20, renamed to Quebico while the README still tells the Omoikane myth
+    records: [P1, D1, D2, D3]
+    expect:
+      q1: [[D2, P1]]
+      q2: []
+
+  - name: readme-retold
+    note: right after the rename, the README tells the Kuebiko story instead
+    records: [P1, D1, D2, D3, D4]
+    expect: {q1: [], q2: []}
+
+  - name: plan-of-08-29
+    note: 2026-08-29, the risk-ordered plan, with the PyPI placeholder still planned
+    records: [P1, D1, D2, D3, D4, G1, G2, D5, D6, T1, T2]
+    expect: {q1: [], q2: []}
+
+  - name: decisions-of-09-29
+    note: 2026-09-29, 0004 makes the placeholder optional and 0005 waits for the questions
+    records: [P1, D1, D2, D3, D4, G1, G2, D5, D6, T1, T2, D7, P2, D8]
+    set: {P2: {holds: true}}
+    expect:
+      q1: []
+      q2: [T2]
+
+  - name: questions-frozen
+    note: constructed, the questions are frozen but 0005 is not yet superseded
+    records: [P1, D1, D2, D3, D4, G1, G2, D5, D6, T1, T2, D7, P2, D8]
+    expect:
+      q1: [[D8, P2]]
+      q2: [T2]
+
+  - name: freeze-recorded
+    note: 2026-10-08, 0009 freezes the questions and supersedes 0005
+    records: [P1, D1, D2, D3, D4, G1, G2, D5, D6, T1, T2, D7, P2, D8, D9]
+    expect:
+      q1: []
+      q2: [T2]
+
+  - name: placeholder-task-closed
+    note: constructed, after this change closes T1 the leftover PyPI task is closed too
+    records: [P1, D1, D2, D3, D4, G1, G2, D5, D6, T1, T2, D7, P2, D8, D9]
+    set: {T1: {closed: true}, T2: {closed: true}}
+    expect: {q1: [], q2: []}

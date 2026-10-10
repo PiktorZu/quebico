@@ -1,7 +1,8 @@
 # `.quebico/inbox/` — provisional decision records
 
-Quebico's schema does not exist yet. This directory is the stand-in that lets the
-project start measuring its own capture rate before the schema is designed.
+Schema v0.1 exists (`docs/schema.md`), but records move to `.quebico/records/` only in
+Step 3 (0010). Until then this directory is the stand-in that lets the project measure
+its own capture rate.
 
 ## The rule
 
@@ -15,7 +16,7 @@ order they were written). Cover three things:
 
 Free-form is deliberate. Do not add front matter, do not impose a structure, do not add
 fields "for later". Anything invented here would contaminate the schema work it is
-supposed to inform. These files migrate to the fixed schema once schema v0.1 exists.
+supposed to inform. These files migrate to schema v0.1 in Step 3.
 
 Every pull request either adds a file here or states the exact line `Decisions: none`
 in its description. A PR that silently does neither is a capture miss, and misses are

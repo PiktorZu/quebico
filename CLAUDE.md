@@ -9,7 +9,8 @@ premises behind them — as a small fixed-vocabulary graph stored as plain files
 the repository it watches, and uses that graph to answer questions the project cannot
 answer today: orphan tasks, contradictions, stale premises, drift.
 
-Status: **pre-v0.1**. No installable code yet. See `README.md` for the roadmap.
+Status: **pre-v0.1**. The first code, `quebico check`, is being built test-first
+(Step 2); nothing is released yet. See `README.md` for the roadmap.
 
 Language: everything in this repository is written in English. Design write-ups are
 published in English and Japanese.
@@ -33,7 +34,8 @@ them, do not scaffold for them:
 - Any node type or edge type that no frozen question requires.
 
 **Code budget to v0.1: 500 lines total under `src/`**, tests excluded. If a change
-would break that budget, stop and say so instead of writing it.
+would break that budget, stop and say so instead of writing it. `tests/test_budget.py`
+counts every line.
 
 **The meta-rule for every task**: you must be able to state in one line *which
 uncertainty it removes, at what cost, and how its outcome is judged yes or no.*
@@ -78,9 +80,10 @@ adopting a timeout rule, accepting or rejecting a plan revision — all decision
 - Every data file carries a `schema_version` field from its first line of existence.
 - Graph data lives in a dedicated directory: `.quebico/` inside the repository being
   watched — including this one. Quebico dogfoods itself.
-- CI arrives when the first code lands, not before: `ruff`, `pyright`, `pytest`, plus
-  schema validation of the graph data. CI runs deterministic tests only; evals run
-  outside CI.
+- CI runs on every pull request, and you run the same before proposing one:
+  `uv run ruff check`, `uv run ruff format --check`, `uv run pyright` (strict),
+  `uv run pytest`, and `uv run quebico check` on this repository's own records. CI runs
+  deterministic tests only; evals run outside CI.
 
 ## Testing (applies from the first line of code onward)
 

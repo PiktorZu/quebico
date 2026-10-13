@@ -1,5 +1,6 @@
-"""Property: whatever a file under the records directory holds, `quebico check` answers
-with data errors, never with an exception."""
+"""Property: whatever the files under the records directory hold, `quebico check`
+answers with data errors or, on records without any, with the watch questions — never
+with an exception."""
 
 from pathlib import Path
 
@@ -17,6 +18,7 @@ DATA_ERRORS = {
     "duplicate-id",
     "bad-link",
 }
+ANSWERS = {"stale-premise", "orphan-task"}
 FIELDS = [
     "schema_version",
     "id",
@@ -87,9 +89,12 @@ def test_any_files_give_data_errors_not_exceptions(
         )
         paths.append(path)
     findings = check(paths)
-    assert {f.code for f in findings} <= DATA_ERRORS
+    codes = {f.code for f in findings}
+    assert codes <= DATA_ERRORS | ANSWERS
+    assert not (codes & DATA_ERRORS and codes & ANSWERS)
     assert {f.path for f in findings} <= set(paths)
-    for finding in findings:  # every message prints, on one short line
+    for finding in findings:  # every message prints on one line; a data error, short
         line = str(finding)
         line.encode("utf-8")
-        assert "\n" not in line and len(line) < 500
+        assert "\n" not in line
+        assert finding.code not in DATA_ERRORS or len(line) < 500

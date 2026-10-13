@@ -2,7 +2,9 @@
 
 Each row names the files to write and the (error, file) pairs `quebico check` must
 report, one pair per error. The five errors follow the list in docs/schema.md:
-front-matter, field-value, unexpected-field, duplicate-id, bad-link.
+front-matter, field-value, unexpected-field, duplicate-id, bad-link. A row with data
+errors must report nothing else, since the watch questions wait for a record set with
+none; the answers on a valid row are left to tests/test_questions.py.
 """
 
 from pathlib import Path
@@ -325,5 +327,9 @@ def test_data_errors(
         else:
             path.write_bytes(content.encode("utf-8"))
     findings = check(sorted(tmp_path.rglob("*.md")))
+    if not expected:  # a valid record set: its answers are tested elsewhere
+        findings = [
+            f for f in findings if f.code not in ("stale-premise", "orphan-task")
+        ]
     got = sorted((f.code, f.path.relative_to(tmp_path).as_posix()) for f in findings)
     assert got == sorted(expected)

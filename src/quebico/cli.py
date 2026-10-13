@@ -6,6 +6,7 @@ from collections.abc import Sequence
 from pathlib import Path
 
 from quebico import check
+from quebico.questions import CODES
 
 RECORDS = Path(".quebico/records")
 
@@ -21,7 +22,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     commands = parser.add_subparsers(dest="command", required=True)
     check_command = commands.add_parser(
-        "check", help="report data errors in the records"
+        "check",
+        help="report data errors in the records, or else answer the watch questions",
     )
     check_command.add_argument(
         "directory",
@@ -45,6 +47,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     findings = check(paths)
     for finding in findings:
         print(finding)
-    errors = _count(len(findings), "data error") if findings else "no data errors"
-    print(f"checked {_count(len(paths), 'record')}: {errors}")
-    return 1 if findings else 0
+    answers = [finding for finding in findings if finding.code in CODES]
+    errors = len(findings) - len(answers)
+    if errors:
+        summary = f"{_count(errors, 'data error')} (watch questions skipped)"
+    else:
+        counts = [f"{sum(a.code == code for a in answers)} {code}" for code in CODES]
+        summary = ", ".join(["no data errors", *counts])
+    print(f"checked {_count(len(paths), 'record')}: {summary}")
+    return 1 if errors else 0

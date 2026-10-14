@@ -3,6 +3,7 @@
 from collections.abc import Iterable
 from pathlib import Path
 
+from quebico.questions import orphan_tasks, stale_premises
 from quebico.records import Finding, load
 
 __all__ = ["Finding", "check"]
@@ -11,8 +12,10 @@ __all__ = ["Finding", "check"]
 def check(paths: Iterable[Path]) -> list[Finding]:
     """Everything `quebico check` reports on these record files.
 
-    For now that is the data errors of docs/schema.md; the watch questions of
-    docs/questions.md come next, and run only on a record set with no data error.
+    That is the data errors of docs/schema.md or, on a record set with none, the
+    answers to the two watch questions of docs/questions.md.
     """
-    _, errors = load(paths)
-    return errors
+    records, errors = load(paths)
+    if errors:
+        return errors
+    return stale_premises(records) + orphan_tasks(records)

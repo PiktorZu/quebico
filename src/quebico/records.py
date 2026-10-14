@@ -79,6 +79,8 @@ class Finding:
     code: str
     path: Path
     message: str
+    # The records an answer names: (decision, premise) or (task,).
+    ids: tuple[str, ...] = ()
 
     def __str__(self) -> str:
         return f"{self.path}: {self.code}: {self.message}"

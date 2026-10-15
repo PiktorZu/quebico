@@ -1,6 +1,7 @@
 """Property: whatever the files under the records directory hold, `quebico check`
 answers with data errors or, on records without any, with the watch questions — never
-with an exception."""
+with an exception. `quebico graph` gives the same data errors, or else a graph in plain
+ASCII, which no console encoding can garble."""
 
 from pathlib import Path
 
@@ -9,7 +10,7 @@ import yaml
 from hypothesis import given
 from hypothesis import strategies as st
 
-from quebico import check
+from quebico import check, graph
 
 DATA_ERRORS = {
     "front-matter",
@@ -98,3 +99,8 @@ def test_any_files_give_data_errors_not_exceptions(
         line.encode("utf-8")
         assert "\n" not in line
         assert finding.code not in DATA_ERRORS or len(line) < 500
+    view = graph(paths)
+    if codes & DATA_ERRORS:
+        assert view == findings
+    else:
+        assert isinstance(view, str) and view.isascii()

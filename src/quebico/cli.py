@@ -1,18 +1,34 @@
-"""The command line. `quebico check` fails only on data errors (0011)."""
+"""The command line. `quebico check` fails only on data errors (0011); `quebico graph`
+draws only records that have none (0015)."""
 
 import argparse
 import sys
 from collections.abc import Sequence
 from pathlib import Path
 
-from quebico import check
+from quebico import check, graph
 from quebico.questions import CODES
 
 RECORDS = Path(".quebico/records")
+COMMANDS = {
+    "check": "report data errors in the records, or else answer the watch questions",
+    "graph": "print the records as a Mermaid flowchart in Markdown, ready for GitHub",
+}
 
 
 def _count(number: int, noun: str) -> str:
     return f"{number} {noun}" + ("" if number == 1 else "s")
+
+
+def _graph(paths: list[Path]) -> int:
+    view = graph(paths)
+    if isinstance(view, str):
+        print(view, end="")
+        return 0
+    for error in view:  # on standard error, never in a file the graph is sent to
+        print(error, file=sys.stderr)
+    print(f"quebico: {_count(len(view), 'data error')}, so no graph", file=sys.stderr)
+    return 1
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -21,20 +37,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         description="Record the reasoning that connects your project, and put it to work.",
     )
     commands = parser.add_subparsers(dest="command", required=True)
-    check_command = commands.add_parser(
-        "check",
-        help="report data errors in the records, or else answer the watch questions",
-    )
-    check_command.add_argument(
-        "directory",
-        nargs="?",
-        type=Path,
-        default=RECORDS,
-        help=f"where the records are (default: {RECORDS})",
-    )
-    directory: Path = parser.parse_args(argv).directory
+    for name, purpose in COMMANDS.items():
+        commands.add_parser(name, help=purpose).add_argument(
+            "directory",
+            nargs="?",
+            type=Path,
+            default=RECORDS,
+            help=f"where the records are (default: {RECORDS})",
+        )
+    arguments = parser.parse_args(argv)
+    directory: Path = arguments.directory
     if directory.exists() and not directory.is_dir():
-        check_command.error(f"{directory} is not a directory")
+        commands.choices[arguments.command].error(f"{directory} is not a directory")
     if not directory.exists():
         print(
             f"quebico: {directory} does not exist, so there are no records",
@@ -44,6 +58,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     if reconfigure is not None:  # file names need not be text the console can show
         reconfigure(errors="backslashreplace")
     paths = sorted(path for path in directory.rglob("*.md") if path.is_file())
+    if arguments.command == "graph":
+        return _graph(paths)
     findings = check(paths)
     for finding in findings:
         print(finding)

@@ -9,8 +9,8 @@ premises behind them — as a small fixed-vocabulary graph stored as plain files
 the repository it watches, and uses that graph to answer questions the project cannot
 answer today: orphan tasks, contradictions, stale premises, drift.
 
-Status: **pre-v0.1**. The first code, `quebico check`, is being built test-first
-(Step 2); nothing is released yet. See `README.md` for the roadmap.
+Status: **pre-v0.1**. The first code, `quebico check` and `quebico graph`, was built
+test-first in Step 2; nothing is released yet. See `README.md` for the roadmap.
 
 Language: everything in this repository is written in English. Design write-ups are
 published in English and Japanese.

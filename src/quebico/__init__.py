@@ -3,10 +3,11 @@
 from collections.abc import Iterable
 from pathlib import Path
 
+from quebico.mermaid import flowchart
 from quebico.questions import orphan_tasks, stale_premises
 from quebico.records import Finding, load
 
-__all__ = ["Finding", "check"]
+__all__ = ["Finding", "check", "graph"]
 
 
 def check(paths: Iterable[Path]) -> list[Finding]:
@@ -19,3 +20,10 @@ def check(paths: Iterable[Path]) -> list[Finding]:
     if errors:
         return errors
     return stale_premises(records) + orphan_tasks(records)
+
+
+def graph(paths: Iterable[Path]) -> str | list[Finding]:
+    """What `quebico graph` draws of these record files: the records as a Mermaid
+    flowchart in Markdown or, on a record set with data errors, those errors (0015)."""
+    records, errors = load(paths)
+    return errors or flowchart(records)

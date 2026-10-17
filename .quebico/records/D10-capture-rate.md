@@ -1,4 +1,11 @@
-# 0001 — How the capture rate gets measured
+---
+schema_version: 1
+id: D10
+kind: decision
+title: Measure the capture rate over every merged pull request
+---
+
+Was inbox 0001 (#2). Split under rule 1: the deferral of branch protection is D11.
 
 **Decided:** the denominator of Quebico's own capture rate is **every merged pull
 request**. Each PR must either add at least one file under `.quebico/inbox/` or state

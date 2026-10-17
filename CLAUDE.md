@@ -10,7 +10,8 @@ the repository it watches, and uses that graph to answer questions the project c
 answer today: orphan tasks, contradictions, stale premises, drift.
 
 Status: **pre-v0.1**. The first code, `quebico check` and `quebico graph`, was built
-test-first in Step 2; nothing is released yet. See `README.md` for the roadmap.
+test-first in Step 2; nothing is released yet. Since Step 3 the project's own records
+live in `.quebico/records/`, and CI checks them. See `README.md` for the roadmap.
 
 Language: everything in this repository is written in English. Design write-ups are
 published in English and Japanese.
@@ -41,32 +42,58 @@ counts every line.
 uncertainty it removes, at what cost, and how its outcome is judged yes or no.*
 A task that cannot be stated that way gets dropped, not done.
 
-## Recording convention (provisional — replaced by schema v0.1 in Step 3)
+## Recording convention
 
-This is the most important section in this file. It exists so that the capture problem
-can be measured starting now, before the schema exists.
+This is the most important section in this file. The capture rate is measured against
+it (D31).
 
-**When a decision about direction, design, or operations is made in a session, write it
-to `.quebico/inbox/` as one free-form Markdown file** named `NNNN-short-slug.md`.
-Cover three things: what was decided, why, and which alternatives were rejected and why.
-Free-form is deliberate — do not invent a schema here. These files move to schema v0.1
-(`docs/schema.md`) in Step 3, not before (0010).
+**When a decision about direction, design, or operations is made in a session, record it
+under `.quebico/records/`** as one Markdown file in schema v0.1 (`docs/schema.md`): front
+matter with `schema_version`, `id`, `kind`, `title` and the links, and a body that says
+what was decided, why, and which alternatives were rejected and why. Follow the eight
+writing rules in `docs/schema.md` — above all, one record holds one choice, and a
+decision that changes is superseded by a new record, never rewritten.
+
+- Give a new record the next free number of its kind, and name the file after the id and
+  the title, as in `D4-kuebiko-story.md`.
+- Link it. `serves`: for a decision, the goal it is for; for a task, the decision it
+  carries out (rule 4). `depends_on`: only what the decision would fall with (rule 3).
+  `supersedes`: the decisions it replaces. Goals are few and written on purpose; never
+  add one so that something has a goal to serve.
+- Record a premise only when a decision would have to be reconsidered if it failed
+  (rule 3). An open question is a decision to wait, depending on a premise that what it
+  waits for has not happened; any other condition for revisiting stays in the prose
+  (rule 7).
+- When a task closes, set `closed: true`; when a premise stops holding, set
+  `holds: false`. Say when and why in the body.
+- Decisions recorded from PR #2 until Step 3 were numbered `0001`–`0016` in a
+  provisional inbox, and documents still cite them by those numbers. A record made from
+  one says so on its first line: `Was inbox 0009 (#5).`, or `Split from inbox 0001 (#2)`
+  and `From inbox 0003 (#3)` for a part split off or a premise taken from it.
 
 **Every pull request must do exactly one of two things, with no third option:**
 
-- add at least one file under `.quebico/inbox/`, or
+- add at least one record under `.quebico/records/`, or
 - state the exact line `Decisions: none` in its description.
 
-This is what makes the capture rate objectively measurable later. The denominator is
-every merged PR — observable from git history, independent of anyone's memory — and the
+A pull request that only changes a state — closes a task, marks a premise as no longer
+holding — states `Decisions: none` unless it also records a decision.
+
+This is what makes the capture rate objectively measurable. The denominator is every
+merged PR — observable from git history, independent of anyone's memory — and the
 numerator is the PRs that did one of the two. A PR that silently does neither is a
 capture miss and counts against the rate. **Do not backfill missed records.** The misses
 are the measurement.
 
 **Nothing reaches `main` except through a pull request** — no direct commits, no direct
-pushes, not even for a one-line fix. This is not a style rule. Work that never became a
-PR appears in neither the numerator nor the denominator, so a direct push does not merely
-bend the convention, it silently deletes evidence.
+pushes, not even for a one-line fix. A ruleset enforces it (D18). This is not a style
+rule. Work that never became a PR appears in neither the numerator nor the denominator,
+so a direct push does not merely bend the convention, it silently deletes evidence.
+
+**Never edit records to silence a finding.** `quebico check` reports stale-premise
+downstream and orphan tasks for a person to judge, and does not fail on them (D24).
+Closing a task, setting a premise back to holding or deleting a link only to make a
+finding go away is cheating on tests, applied to the records.
 
 What counts as a decision: anything a future contributor would ask "why is it like
 this?" about. Renaming a variable is not a decision. Choosing the schema vocabulary,
@@ -108,7 +135,9 @@ Three prohibitions, no exceptions:
 
 1. **No over-engineering.** Build what the current step needs and nothing beyond it.
 2. **No unrequested features.** If something seems like a good idea and nobody asked for
-   it, write it to `.quebico/inbox/` as a proposal instead of implementing it.
+   it, propose it instead of implementing it: in the pull request description, or, when
+   it should come back at a known point, as a decision to wait under
+   `.quebico/records/` (`docs/schema.md`, rule 7).
 3. **No cheating on tests.** Never disable, skip, weaken, or delete a test to make a run
    pass. A failing test is information — report it.
 

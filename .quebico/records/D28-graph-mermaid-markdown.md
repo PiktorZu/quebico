@@ -1,4 +1,12 @@
-# 0015 — `quebico graph` prints Mermaid in Markdown, only for records without data errors
+---
+schema_version: 1
+id: D28
+kind: decision
+title: Print the graph as Mermaid in Markdown, only for records without data errors
+depends_on: [D32]
+---
+
+Was inbox 0015 (#11).
 
 **Decided:** `quebico graph [DIR]` reads the same records as `quebico check`, under the
 same directory rules (0011), and prints them on standard output as a Mermaid flowchart

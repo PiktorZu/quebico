@@ -1,4 +1,12 @@
-# 0014 — Proposal: name the chain in a stale-premise answer
+---
+schema_version: 1
+id: D27
+kind: decision
+title: Wait for the Step 3 reviews before naming the chain in a stale-premise answer
+depends_on: [P6]
+---
+
+Was inbox 0014 (#10). Recorded as a decision to wait (rule 7).
 
 **Proposed, not decided.** A stale-premise answer names only the two ends: the decision
 in force and the failed premise it reaches. When the premise is reached through other

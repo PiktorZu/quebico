@@ -1,4 +1,11 @@
-# 0011 — `quebico check` fails only on data errors
+---
+schema_version: 1
+id: D24
+kind: decision
+title: Fail quebico check only on data errors
+---
+
+Was inbox 0011 (#9).
 
 **Decided:** `quebico check [DIR]` exits with 1 when the records have a data error
 (`docs/schema.md`) and with 0 otherwise — including when it answers the watch questions

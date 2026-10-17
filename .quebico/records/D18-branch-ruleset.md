@@ -1,4 +1,12 @@
-# 0007 — `main` is protected by a ruleset
+---
+schema_version: 1
+id: D18
+kind: decision
+title: Protect main with a ruleset that binds administrators too
+supersedes: [D11]
+---
+
+Was inbox 0007 (#3).
 
 **Decided:** a GitHub branch ruleset protects `main`. Changes land only through a pull
 request, with zero required approvals so a solo maintainer can merge their own; force

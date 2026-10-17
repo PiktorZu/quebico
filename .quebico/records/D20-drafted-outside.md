@@ -1,4 +1,13 @@
-# 0008 — Changes are drafted outside the repository and pushed by Claude as pull requests
+---
+schema_version: 1
+id: D20
+kind: decision
+title: Draft changes outside the repository and let Claude open the pull requests
+supersedes: [D19]
+depends_on: [P5, D18]
+---
+
+Was inbox 0008 (#4).
 
 **Decided:** a change starts as a draft in the maintainer's project folder, outside this
 repository, where plans and article drafts already live, and is refined there in

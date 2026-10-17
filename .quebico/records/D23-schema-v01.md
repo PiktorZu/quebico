@@ -1,4 +1,13 @@
-# 0010 — Schema v0.1: the vocabulary of 0009, one Markdown file per record
+---
+schema_version: 1
+id: D23
+kind: decision
+title: Adopt schema v0.1, one Markdown file per record
+serves: [G1]
+depends_on: [D9]
+---
+
+Was inbox 0010 (#8).
 
 **Decided:** schema v0.1 is `docs/schema.md`.
 

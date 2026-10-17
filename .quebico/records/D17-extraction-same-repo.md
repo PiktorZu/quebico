@@ -1,4 +1,11 @@
-# 0006 — Extraction stays in this repository
+---
+schema_version: 1
+id: D17
+kind: decision
+title: Build extraction in this repository as its own package
+---
+
+Was inbox 0006 (#3).
 
 **Decided:** automatic extraction (v0.2) is built in this repository as its own package
 next to the core — a uv workspace makes one repository with two packages cheap — and its

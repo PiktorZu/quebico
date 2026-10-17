@@ -1,4 +1,12 @@
-# 0005 — Two proposed reserved slots wait for Step 1
+---
+schema_version: 1
+id: D8
+kind: decision
+title: Defer the two proposed reserved slots until the questions are frozen
+depends_on: [P2]
+---
+
+Was inbox 0005 (#3).
 
 **Decided:** not to adopt yet the two reserved schema slots proposed on 2026-09-20:
 

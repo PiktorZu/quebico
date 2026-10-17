@@ -1,4 +1,11 @@
-# 0013 — Snapshot tests use inline-snapshot
+---
+schema_version: 1
+id: D26
+kind: decision
+title: Write snapshot tests with inline-snapshot
+---
+
+Was inbox 0013 (#10).
 
 **Decided:** the snapshot tests that `CLAUDE.md` asks for — the wording of the answers
 now, the Mermaid view next — use inline-snapshot, which keeps each expected output inside

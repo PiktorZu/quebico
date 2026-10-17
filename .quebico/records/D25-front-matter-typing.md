@@ -1,4 +1,12 @@
-# 0012 — Front matter is read with PyYAML, typing only what the schema uses
+---
+schema_version: 1
+id: D25
+kind: decision
+title: Read front matter with PyYAML, typing only what the schema uses
+depends_on: [D23]
+---
+
+Was inbox 0012 (#9).
 
 **Decided:** `quebico check` reads front matter with PyYAML's safe loader, narrowed to
 what `docs/schema.md` uses:

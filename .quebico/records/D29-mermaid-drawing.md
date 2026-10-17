@@ -1,4 +1,12 @@
-# 0016 — How the Mermaid view draws records
+---
+schema_version: 1
+id: D29
+kind: decision
+title: Draw records left to right, a shape per kind, a line per link
+depends_on: [D28]
+---
+
+Was inbox 0016 (#11).
 
 **Decided:** `quebico graph` (0015) draws a record set like this:
 

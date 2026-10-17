@@ -1,4 +1,13 @@
-# 0003 — v0.2 extracts through a session-end hook, not an MCP server
+---
+schema_version: 1
+id: D15
+kind: decision
+title: Extract records in v0.2 through a session-end hook, not an MCP server
+supersedes: [D14]
+depends_on: [P3]
+---
+
+Was inbox 0003 (#3).
 
 **Decided:** v0.2 captures records through a Claude Code `Stop` / `SessionEnd` hook that
 runs an extraction script over the session transcript and proposes records under

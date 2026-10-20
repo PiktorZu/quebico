@@ -1,4 +1,15 @@
-# 0009 — The watch questions are frozen: the two that v0.1 answers
+---
+schema_version: 1
+id: D9
+kind: decision
+title: Freeze the two watch questions that v0.1 answers
+serves: [G1]
+supersedes: [D8]
+depends_on: [D13]
+---
+
+Was inbox 0009 (#5). Split under rule 1: the three readings are D21, and the proposal
+kept for Step 3 is D22.
 
 **Decided:** `docs/questions.md` is frozen. It fixes two questions — stale-premise
 downstream and orphan tasks, the two checks v0.1 ships (0002) — as rules that two readers

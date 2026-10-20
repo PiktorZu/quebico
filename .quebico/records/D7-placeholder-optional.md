@@ -1,4 +1,14 @@
-# 0004 — No placeholder release on PyPI
+---
+schema_version: 1
+id: D7
+kind: decision
+title: Make the PyPI placeholder optional and never empty
+serves: [G2]
+supersedes: [D5]
+depends_on: [P4]
+---
+
+Was inbox 0004 (#3). Split under rule 1: the version change is D16.
 
 **Decided:** publishing an empty 0.0.1 of `quebico` to PyPI to hold the name is
 downgraded from a planned step to optional, and nothing is scheduled. If it is ever

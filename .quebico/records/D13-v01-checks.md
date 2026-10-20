@@ -1,4 +1,13 @@
-# 0002 — v0.1 answers questions: two deterministic checks and a Mermaid view
+---
+schema_version: 1
+id: D13
+kind: decision
+title: Make two deterministic checks, not a visualization, v0.1's deliverable
+serves: [G1]
+supersedes: [D12]
+---
+
+Was inbox 0002 (#3). Split under rule 1: the Mermaid view is D32.
 
 **Decided:** the "visualization" in v0.1 is replaced by two structural checks that run
 over the graph with no LLM involved, plus a Mermaid view:
